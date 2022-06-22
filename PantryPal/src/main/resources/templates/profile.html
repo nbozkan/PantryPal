@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Profile</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Additional CSS files here -->
+    <link type="text/css" th:href="@{/css/profile.css}" rel="stylesheet" href="../static/css/profile.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <a href="login.html" class="navbar-brand text-danger text-decoration-none">PantryPal</a>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav"></div>
+                        <div class="navbar-nav">
+                            <p class="text-danger">Welcome <span th:text="${user.firstName}"></span>  <span th:text="${user.lastName}"></span></p>
+                            <a th:href="@{/profile}"><span class="material-icons">home</span></a>
+                            <a href="createProduct.html"><span class="material-icons">add_circle</span></a>
+                            <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+                                <input type="hidden" name="_csrf" value="nfu23ryt98y48hcy4qc8nryt3478yc78tn4235y78cyh78tyf78rt"/>
+                                <input type="submit" value="Logout"/>
+                            </form>
+                            <a href="" id="logoutLink"><span class="material-icons">logout</span></a>
+                        </div>
+                    </div>
+            </nav>
+              <!-- /Breadcrumb -->
+        
+              <div class="row gutters-sm">
+                <div class="col-md-4">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <h6 class="mb-0">Full Name</h6>
+                        </div>
+                        <div class="col-sm-8 text-secondary">
+                          Full Name
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-8 text-secondary">
+                          Email
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <h6 class="mb-0">Phone</h6>
+                        </div>
+                        <div class="col-sm-8 text-secondary">
+                          Phone
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <h6 class="mb-0">Address</h6>
+                        </div>
+                        <div class="col-sm-8 text-secondary">
+                          Address
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <a class="btn btn-danger btn-block" target="__blank" href="updateProfile.html">Edit</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8 ml-auto">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="card-title">
+                                    <h4>My Pantry</h4>
+                                  </div>
+                                  <table class="card-table table text-center">
+                                    <thead>
+                                      <tr>
+                                          <th scope="col">Product Name</th>
+                                          <th scope="col">Total Left</th>
+                                          <th scope="col">Edit</th>
+                                          <th scope="col">Delete</th>
+                                      </tr>
+                                    </thead>
+                                  </table>
+                            </div> 
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- use the the full jQuery build, NOT the slim build-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+      
+    <!-- custom js files -->
+    <script type="text/javascript" th:src="@{/js/home.js}" src="../static/js/home.js"></script>
+
+    </body>
+</html>

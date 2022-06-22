@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+body {
+    margin: 0;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: #2e323c;
+    position: relative;
+    height: 100%;
+    background-image: url("../images/masala.jpg");
+}
+.navbar-brand{
+    font-family: 'Lobster', cursive;
+}
+.row{
+    font-family: 'Poppins', sans-serif;
+    padding-top: 20px;
+}
+.form-control {
+    border: 1px solid #cfd1d8;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .825rem;
+    background: #FAF5EF;
+    color: #2e323c;
+}
+.card {
+    background: #FFFEFC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 30px;
+    box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+}
+nav{
+    border-radius: 5px;
+    background: #FFFEFC;
+    padding: 20px;
+    height: 50px;
+    box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 36px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    margin-top: 10px;
+    color: #dc3545;
+    margin-left: 25px;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+p{
+    margin-top: 10px;
+    margin-left: 25px;
+}
