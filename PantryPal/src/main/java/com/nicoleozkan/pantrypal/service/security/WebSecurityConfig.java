@@ -1,4 +1,4 @@
-package com.nicoleozkan.pantrypal.security;
+package com.nicoleozkan.pantrypal.service.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

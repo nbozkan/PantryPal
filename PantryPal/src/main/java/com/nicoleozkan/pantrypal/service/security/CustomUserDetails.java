@@ -1,9 +1,8 @@
-package com.nicoleozkan.pantrypal.security;
+package com.nicoleozkan.pantrypal.service.security;
 
 import com.nicoleozkan.pantrypal.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails
@@ -27,8 +26,9 @@ public class CustomUserDetails implements UserDetails
     }
 
     @Override
-    public String getUsername() {
-        return user.getEmailAddress();
+    public String getUsername()
+    {
+        return user.getEmail();
     }
 
     @Override
@@ -51,6 +51,7 @@ public class CustomUserDetails implements UserDetails
         return true;
     }
 
+    // Returns first and last name of logged-in user
     public String getFullName()
     {
         return user.getFirstName() + " " + user.getLastName();

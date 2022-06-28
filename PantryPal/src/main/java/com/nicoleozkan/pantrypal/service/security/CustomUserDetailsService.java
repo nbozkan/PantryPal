@@ -1,4 +1,4 @@
-package com.nicoleozkan.pantrypal.security;
+package com.nicoleozkan.pantrypal.service.security;
 
 import com.nicoleozkan.pantrypal.model.User;
 import com.nicoleozkan.pantrypal.repository.UserRepository;
@@ -13,9 +13,9 @@ public class CustomUserDetailsService implements UserDetailsService
     private UserRepository repo;
 
     @Override
-    public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
     {
-        User user = repo.findByEmail(emailAddress);
+        User user = repo.findByEmail(email);
         if (user == null)
         {
             throw new UsernameNotFoundException("User not found.");

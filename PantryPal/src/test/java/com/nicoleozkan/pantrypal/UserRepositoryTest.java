@@ -26,7 +26,7 @@ public class UserRepositoryTest
     {
         // Create user
         User user = new User();
-        user.setEmailAddress("alex@gmail.com");
+        user.setEmail("alex@gmail.com");
         user.setPassword("alex2020");
 
         // Save user to database
@@ -36,7 +36,7 @@ public class UserRepositoryTest
         User existUser = entityManager.find(User.class, savedUser.getUserId());
 
         // Confirm duplicate
-        assertThat(existUser.getEmailAddress()).isEqualTo(user.getEmailAddress());
+        assertThat(existUser.getEmail()).isEqualTo(user.getEmail());
     }
 
     @Test
