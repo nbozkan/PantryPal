@@ -17,21 +17,54 @@
 
 </head>
 <body>
+<div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-danger text-center">
+        <h4>Create Product</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" title="Close">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="createProductForm" th:action="@{/createProductForm}" method="post">
+          <div class="text-center" th:if="${!productErrors.isEmpty()}">
+            <p class="alert alert-danger" th:each="error : ${productErrors}" th:text="${error.message}">Error message</p>
+          </div>
+          <div class="card-title text-danger text-center">
+            <h4>Create Product</h4>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="productName">Product Name</label>
+              <input type="text" class="form-control" id="productName" name="productName" placeholder="Enter product name" required/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger btn-lg">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a href="index.html" class="navbar-brand text-danger text-decoration-none">PantryPal</a>
+      <a th:href="@{/index}" class="navbar-brand text-danger text-decoration-none">PantryPal</a>
       <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav"></div>
         <div class="navbar-nav">
-          <a th:href="@{/profile}"><span class="material-icons">home</span></a>
-          <a href="createProduct.html"><span class="material-icons">add_circle</span></a>
+          <p class="text-danger">Welcome <span th:text="${#authentication.getPrincipal().getFullName()}"></span></p>
+          <a title="Profile home page" th:href="@{/profile}"><span class="material-icons">home</span></a>
+          <a data-toggle="modal" data-target="#createProductModal" id="addProductModal" title="Create Product"><span class="material-icons">add_circle</span></a>
           <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
             <input type="hidden" name="_csrf" value="nfu23ryt98y48hcy4qc8nryt3478yc78tn4235y78cyh78tyf78rt"/>
             <input type="submit" value="Logout"/>
           </form>
-          <a href="" id="logoutLink"><span class="material-icons">logout</span></a>
+          <a href="" id="logoutLink" title="Logout"><span class="material-icons">logout</span></a>
         </div>
       </div>
     </div>
@@ -41,45 +74,37 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="card h-100">
         <div class="card-body">
-          <form th:object="${product}">
+          <form class="productForm">
             <div class="row gutters">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="form-group">
-                  <label for="productName">Product Name</label>
-                  <input type="text" class="form-control" id="productName" th:text="*{productName}" readonly/>
-                </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <h2 class="text-danger text-center"><span th:text="${userProduct.product.productName}"></span></h2>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
                   <label for="totalAmount">Total Amount</label>
-                  <input type="text" class="form-control" id="totalAmount" th:text="*{totalAmount}" readonly/>
-                </div>
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="form-group">
-                  <label for="amountUsed">Amount Used</label>
-                  <input type="text" class="form-control" id="amountUsed" th:text="*{amountUsed}" readonly/>
+                  <input type="text" class="form-control" id="totalAmount" placeholder="Total amount" th:value="${userProduct.totalAmount}" readonly/>
                 </div>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
                   <label for="unit">Units</label>
-                  <input type="text" class="form-control" id="unit" th:text="*{unit}" readonly/>
+                  <input type="text" class="form-control" id="unit" placeholder="Units (oz, slices, lbs, etc.)" th:value="${userProduct.unit}" readonly/>
                 </div>
               </div>
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="form-group">
                   <label for="productNotes">Product Notes</label>
-                  <textarea class="form-control" id="productNotes" rows="4" cols="50" th:text="*{productNotes}" readonly></textarea>
+                  <textarea class="form-control" id="productNotes" placeholder="Product notes" rows="4" cols="50" th:value="${userProduct.productNotes}" readonly></textarea>
                 </div>
               </div>
             </div>
+            <input type="hidden" name="userProductId" th:value="${userProduct.userProductId}">
             <div class="row gutters">
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <button id="editButton" class="btn btn-danger btn-block" th:href="@{/updateProduct/{productId}(productId=*{productId})}">Edit</button>
+                <a id="editButton" class="btn btn-secondary btn-block" th:href="@{/updateProduct/{userProductId}(userProductId=${userProduct.userProductId})}">Edit</a>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <button id="deleteButton" class="btn btn-danger btn-block" th:href="@{/deleteProduct/{productId}(productId=*{productId})}">Delete</button>
+                  <a id="deleteButton" class="btn btn-danger btn-block" th:href="@{/deleteProduct/{userProductId}(userProductId=${userProduct.userProductId})}">Delete</a>
               </div>
             </div>
           </form>
@@ -87,8 +112,6 @@
       </div>
     </div>
   </div>
-</div>
-
 </div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

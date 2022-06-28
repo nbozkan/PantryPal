@@ -31,7 +31,7 @@
                 <form th:action="@{/processSignup}" class="signup" method="post" th:object="${user}">
                     <div class="error-text"></div>
                     <div class="field">
-                        <input id="email" type="email" placeholder="Email Address" th:field="*{emailAddress}" required/>
+                        <input id="email" type="email" placeholder="Email" th:field="*{email}" required/>
                         <div class="error error-text"></div>
                     </div>
                     <div class="field">

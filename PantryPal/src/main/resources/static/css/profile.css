@@ -72,3 +72,15 @@ p{
     margin-top: 10px;
     margin-left: 25px;
 }
+form .btn input[type="submit"]{
+    background: none;
+    border: none;
+    color: #fff;
+    padding-left: 0;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+}
+#addProductModal{
+    cursor: pointer;
+}

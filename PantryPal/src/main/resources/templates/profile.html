@@ -17,28 +17,63 @@
 
   </head>
   <body>
+  <!-- Modal -->
+  <div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <button type="button" class="ml-auto close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" title="Close">&times;</span>
+              </button>
+              <div class="modal-body">
+                  <form class="createProductForm" th:action="@{/createProductForm}" method="post">
+                      <div class="text-center" th:if="${!productErrors.isEmpty()}">
+                          <p class="alert alert-danger" th:each="error : ${productErrors}" th:text="${error.message}">Error message</p>
+                      </div>
+                      <div class="card-title text-danger text-center">
+                          <h4>Create Product</h4>
+                      </div>
+                      <div class="col">
+                          <div class="form-group">
+                              <label for="productName">Product Name</label>
+                              <input type="text" class="form-control" id="productName" name="productName" placeholder="Enter product name" required/>
+                          </div>
+                      </div>
+                      <div class="row gutters">
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                              <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancel</button>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                              <button type="submit" class="btn btn-danger btn-block">Create</button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
     <div class="container">
             <!-- Breadcrumb -->
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
-                    <a href="login.html" class="navbar-brand text-danger text-decoration-none">PantryPal</a>
+                    <a th:href="@{/index}" class="navbar-brand text-danger text-decoration-none">PantryPal</a>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav"></div>
                         <div class="navbar-nav">
-                            <p class="text-danger">Welcome <span th:text="${user.firstName}"></span>  <span th:text="${user.lastName}"></span></p>
-                            <a th:href="@{/profile}"><span class="material-icons">home</span></a>
-                            <a href="createProduct.html"><span class="material-icons">add_circle</span></a>
+                            <p class="text-danger">Welcome <span th:text="${#authentication.getPrincipal().getFullName()}"></span></p>
+                            <a data-toggle="modal" data-target="#createProductModal" id="addProductModal" title="Create Product"><span class="material-icons">add_circle</span></a>
+                            <a th:href="@{/profile}" title="Profile home page"><span class="material-icons">home</span></a>
                             <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
                                 <input type="hidden" name="_csrf" value="nfu23ryt98y48hcy4qc8nryt3478yc78tn4235y78cyh78tyf78rt"/>
                                 <input type="submit" value="Logout"/>
                             </form>
-                            <a href="" id="logoutLink"><span class="material-icons">logout</span></a>
+                            <a href="" id="logoutLink" title="Logout"><span class="material-icons">logout</span></a>
                         </div>
                     </div>
+                </div>
             </nav>
-              <!-- /Breadcrumb -->
-        
-              <div class="row gutters-sm">
+        <!-- /Breadcrumb -->
+
+            <div class="row gutters-sm">
                 <div class="col-md-4">
                   <div class="card mb-3">
                     <div class="card-body">
@@ -47,7 +82,7 @@
                           <h6 class="mb-0">Full Name</h6>
                         </div>
                         <div class="col-sm-8 text-secondary">
-                          Full Name
+                            <span th:text="${#authentication.getPrincipal().getFullName()}"></span>
                         </div>
                       </div>
                       <hr>
@@ -56,7 +91,7 @@
                           <h6 class="mb-0">Email</h6>
                         </div>
                         <div class="col-sm-8 text-secondary">
-                          Email
+                          <span th:text="${#authentication.getPrincipal().getUsername}"></span>
                         </div>
                       </div>
                       <hr>
@@ -80,19 +115,74 @@
                       <hr>
                       <div class="row">
                         <div class="col-sm-12">
-                          <a class="btn btn-danger btn-block" target="__blank" href="updateProfile.html">Edit</a>
+                          <a class="btn btn-danger btn-block" th:href="@{/updateProfileForm}">Edit</a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-8 ml-auto">
-                    <div class="card mb-3">
+                <div class="col-md-8">
+                      <div class="card">
+                          <div class="card-body">
+                              <div class="row">
+                                  <div class="col-12">
+                                      <form class="addProductForm" th:action="@{/addProductForm}" method="post">
+                                          <div class="row gutters">
+                                              <div class="col-12 text-center" th:if="${!userProductErrors.isEmpty()}">
+                                                  <p class="alert alert-danger" th:each="error : ${userProductErrors}" th:text="${error.message}">Error message</p>
+                                              </div>
+                                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                  <h2 class="text-danger text-center">Add Product</h2>
+                                              </div>
+                                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                  <div class="form-group">
+                                                      <label for="prodName">Product Name</label>
+                                                      <select id="prodName" name="prodName" class="form-control">
+                                                          <option th:each="product : ${products}" th:value="${product.productName}" th:text="${product.productName}">Product Name</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                  <div class="form-group">
+                                                      <label for="totalAmount">Total Amount</label>
+                                                      <input type="text" class="form-control" id="totalAmount" name="totalAmount" placeholder="Enter total amount"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                  <div class="form-group">
+                                                      <label for="unit">Units</label>
+                                                      <input type="text" class="form-control" id="unit" name="unit" placeholder="Enter units (oz, slices, lbs, etc.)"/>
+                                                  </div>
+                                              </div>
+                                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                  <div class="form-group">
+                                                      <label for="productNotes">Product Notes</label>
+                                                      <textarea class="form-control" id="productNotes" name="productNotes" placeholder="Enter product notes" rows="4" cols="50"></textarea>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="row gutters">
+                                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                  <a id="cancelButton" class="btn btn-secondary btn-block" th:href="@{/profile}">Cancel</a>
+                                              </div>
+                                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                  <button type="submit" class="btn btn-danger btn-block">Add</button>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                </div>
+                <div class="col-md-12 ml-auto">
+                    <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="card-title">
+                                <div class="col-12">
+                                <div class="card-title text-danger text-center">
                                     <h4>My Pantry</h4>
-                                  </div>
+                                </div>
                                   <table class="card-table table text-center">
                                     <thead>
                                       <tr>
@@ -102,14 +192,22 @@
                                           <th scope="col">Delete</th>
                                       </tr>
                                     </thead>
+                                      <tbody>
+                                      <tr th:each="userProduct : ${userProductList}">
+                                          <td><a class="text-danger text-decoration-none" th:href="@{/product/{userProductId}(userProductId=${userProduct.userProductId})}" th:text="${userProduct.product.productName}" title="Product info">Product Name</a></td>
+                                          <td th:text="${userProduct.totalAmount + ' ' + userProduct.unit}">Total Amount</td>
+                                          <td><a class="text-danger text-decoration-none" th:href="@{/updateProduct/{userProductId}(userProductId=${userProduct.userProductId})}" title="Edit Product">Edit</a></td>
+                                          <td><a class="text-danger text-decoration-none" th:href="@{/deleteProduct/{userProductId}(userProductId=${userProduct.userProductId})}" title="Delete Product">Delete</a></td>
+                                      </tr>
+                                      </tbody>
                                   </table>
                             </div> 
                         </div>
                     </div>
                   </div>
-              </div>
             </div>
         </div>
+    </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- use the the full jQuery build, NOT the slim build-->
@@ -120,5 +218,5 @@
     <!-- custom js files -->
     <script type="text/javascript" th:src="@{/js/home.js}" src="../static/js/home.js"></script>
 
-    </body>
+  </body>
 </html>
